@@ -1,0 +1,36 @@
+<html>
+<body>
+    <form id="predictionForm">
+        Name: <input type="text" id="name"><br>
+        Email: <input type="email" id="email"><br>
+        Feature 1: <input type="number" id="feature1"><br>
+        Feature 2: <input type="number" id="feature2"><br>
+        Feature 3: <input type="number" id="feature3"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        document.getElementById('predictionForm').onsubmit = function(event) {
+            event.preventDefault();
+            var data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                feature1: document.getElementById('feature1').value,
+                feature2: document.getElementById('feature2').value,
+                feature3: document.getElementById('feature3').value
+            };
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => alert('Prediction: ' + data.prediction))
+            .catch(error => console.error('Error:', error));
+        };
+    </script>
+</body>
+</html>

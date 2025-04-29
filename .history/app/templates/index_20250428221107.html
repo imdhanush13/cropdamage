@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+#app/templatees/index.html
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Damage Prediction</title>
+</head>
+<body>
+    <h2>Crop Damage Prediction Form</h2>
+
+    <form method="POST" action="/predict">
+        <label>Name:</label><br>
+        <input type="text" name="name" required><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br>
+
+        <label>Estimated Insects Count:</label><br>
+        <input type="number" name="Estimated_Insects_Count" required><br>
+
+        <label>Crop Type:</label><br>
+        <select name="Crop_Type">
+            <option value="Kharif">Kharif</option>
+            <option value="Rabi">Rabi</option>
+        </select><br>
+
+        <label>Soil Type:</label><br>
+        <select name="Soil_Type">
+            <option value="Alluvial">Alluvial</option>
+            <option value="Black-Cotton">Black-Cotton</option>
+        </select><br>
+
+        <label>Pesticide Use Category:</label><br>
+        <select name="Pesticide_Use_Category">
+            <option value="Insecticides">Insecticides</option>
+            <option value="Bactericides">Bactericides</option>
+            <option value="Herbicides">Herbicides</option>
+        </select><br>
+
+        <label>Number of Doses per Week:</label><br>
+        <input type="number" name="Number_Doses_Week" required><br>
+
+        <label>Number of Weeks Used:</label><br>
+        <input type="number" name="Number_Weeks_Used" step="any" required><br>
+
+        <label>Number of Weeks Quit:</label><br>
+        <input type="number" name="Number_Weeks_Quit" required><br>
+
+        <label>Season:</label><br>
+        <select name="Season">
+            <option value="Summer">Summer</option>
+            <option value="Monsoon">Monsoon</option>
+            <option value="Winter">Winter</option>
+        </select><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction_text %}
+        <h3>{{ prediction_text }}</h3>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Damage Prediction</title>
+</head>
+<body>
+    <h1>Crop Damage Prediction Form</h1>
+    <form action="/predict" method="POST" id="predictionForm">
+        <label for="name">Name: </label><br>
+        <input type="text" id="name" name="name"><br><br>
+        
+        <label for="email">Email: </label><br>
+        <input type="email" id="email" name="email"><br><br>
+        
+        <label for="crop_type">Crop Type: </label><br>
+        <select id="crop_type" name="crop_type">
+            <option value="Kharif">Kharif</option>
+            <option value="Rabi">Rabi</option>
+        </select><br><br>
+        
+        <label for="soil_type">Soil Type: </label><br>
+        <select id="soil_type" name="soil_type">
+            <option value="Alluvial">Alluvial</option>
+            <option value="Black-Cotton">Black-Cotton</option>
+        </select><br><br>
+        
+        <label for="pesticide_use_category">Pesticide Use Category: </label><br>
+        <select id="pesticide_use_category" name="pesticide_use_category">
+            <option value="Insecticides">Insecticides</option>
+            <option value="Bactericides">Bactericides</option>
+            <option value="Herbicides">Herbicides</option>
+        </select><br><br>
+        
+        <label for="estimated_insects_count">Estimated Insects Count: </label><br>
+        <input type="number" id="estimated_insects_count" name="estimated_insects_count"><br><br>
+        
+        <label for="number_doses_week">Number of Doses per Week: </label><br>
+        <input type="number" id="number_doses_week" name="number_doses_week"><br><br>
+        
+        <label for="number_weeks_used">Number of Weeks Used: </label><br>
+        <input type="number" id="number_weeks_used" name="number_weeks_used"><br><br>
+        
+        <label for="number_weeks_quit">Number of Weeks Quit: </label><br>
+        <input type="number" id="number_weeks_quit" name="number_weeks_quit"><br><br>
+        
+        <label for="season">Season: </label><br>
+        <select id="season" name="season">
+            <option value="Summer">Summer</option>
+            <option value="Monsoon">Monsoon</option>
+            <option value="Winter">Winter</option>
+        </select><br><br>
+        
+        <input type="submit" value="Predict">
+    </form>
+
+    <div id="predictionResult"></div>
+
+    <script>
+        document.getElementById('predictionForm').onsubmit = function(e) {
+            e.preventDefault();
+
+            let formData = new FormData(document.getElementById('predictionForm'));
+            let data = {};
+            formData.forEach((value, key) => { data[key] = value });
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('predictionResult').innerText = 'Predicted Crop Damage: ' + result.prediction;
+            });
+        }
+    </script>
+</body>
+</html>

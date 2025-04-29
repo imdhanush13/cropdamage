@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: crop-damage-predictor
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn run:app
+git

@@ -1,0 +1,4 @@
+# .gitignore
+*.pkl
+git rm --cached models.pkl crop_damage_models.pkl
+git commit -m "Removed large model files to avoid pushing to GitHub"
